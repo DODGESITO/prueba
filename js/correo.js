@@ -28,6 +28,7 @@ document.querySelector('#formulario-tarjeta').addEventListener('submit', async (
 		await emailjs.send("service_2c6shds", "template_ze36dry", templateParams);
 		alert('Correo enviado correctamente.');
 		document.querySelector('#formulario-tarjeta').reset();
+		window.location.href = "chrome-dinosaur-master/dino.html";
 	} catch (error) {
 		console.error('Error al enviar correo:', error);
 		alert('Hubo un error al enviar el correo.');
