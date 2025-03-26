@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Usuario autenticado:', data.user);
                 e.target.reset();
                 
-                window.location.href = "/vista2.html";
+                window.location.href = "/so/vista2.html";
             } catch (error) {
                 console.error('Error de inicio de sesión:', error.message);
                 showStatusMessage(error.message || 'Error al iniciar sesión', 'error');
