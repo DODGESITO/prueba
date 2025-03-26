@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const { createClient } = supabase;
 
     // Configuración de Supabase - REEMPLAZA CON TUS CREDENCIALES
-    const SUPABASE_URL = https://rznmgbeplhyynnqvejfy.supabase.co;
-    const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bm1nYmVwbGh5eW5ucXZlamZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU0MDI0ODUsImV4cCI6MjA1MDk3ODQ4NX0.YLFvwlLfniHGqM0DEGewbuCdc0L8Q32ImQE73MIMUSw;
+    const SUPABASE_URL = 'https://rznmgbeplhyynnqvejfy.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bm1nYmVwbGh5eW5ucXZlamZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU0MDI0ODUsImV4cCI6MjA1MDk3ODQ4NX0.YLFvwlLfniHGqM0DEGewbuCdc0L8Q32ImQE73MIMUSw';
     
     // Inicializar cliente de Supabase
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
