@@ -108,40 +108,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    async function handleRegisterSubmit(e) {
-        e.preventDefault();
-        clearErrors();
-        
-        const username = document.getElementById('register-username').value;
-        const password = document.getElementById('register-password').value;
-        let isValid = true;
-        
-        if (!validateUsername(username)) {
-            registerUsernameError.textContent = 'El nombre de usuario debe tener al menos 3 caracteres';
-            isValid = false;
-        }
-        if (!validatePassword(password)) {
-            registerPasswordError.textContent = 'La contraseña debe tener al menos 6 caracteres';
-            isValid = false;
-        }
-        
-        if (isValid) {
-            try {
-                const email = usernameToEmail(username);
-                const { data, error } = await supabaseClient.auth.signUp({
-                    email,
-                    password,
-                    options: { data: { username } }
-                });
-                if (error) throw error;
-                showStatusMessage('¡Registro exitoso! Ahora puedes iniciar sesión', 'success');
-                registerSection.classList.add('hidden');
-                loginSection.classList.remove('hidden');
-            } catch (error) {
-                showStatusMessage(error.message, 'error');
-            }
-        }
+async function handleRegisterSubmit(e) {
+    e.preventDefault();
+    const username = document.getElementById('register-username').value.trim();
+    const password = document.getElementById('register-password').value.trim();
+
+    if (!username || !password) {
+        showStatusMessage("Todos los campos son obligatorios", "error");
+        return;
     }
+
+    const email = `${username}@gmail.com`;
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+        showStatusMessage("Correo electrónico no válido", "error");
+        return;
+    }
+
+    if (password.length < 6) {
+        showStatusMessage("La contraseña debe tener al menos 6 caracteres", "error");
+        return;
+    }
+
+    try {
+        // Intentar registrar al usuario en Supabase
+        const { data, error } = await supabaseClient.auth.signUp({
+            email,
+            password,
+            options: {
+                data: { username },
+            },
+        });
+
+        if (error) {
+            if (error.message.includes("User already registered")) {
+                showStatusMessage("El usuario ya está registrado.", "error");
+            } else {
+                throw error;
+            }
+            return;
+        }
+
+        showStatusMessage("¡Registro exitoso! Ahora puedes iniciar sesión", "success");
+        e.target.reset();
+
+        setTimeout(() => {
+            document.getElementById('register-section').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+        }, 1000);
+
+    } catch (error) {
+        showStatusMessage(error.message || "Error al registrar usuario", "error");
+    }
+}
 
     async function handleForgotPassword(e) {
         e.preventDefault();
