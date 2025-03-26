@@ -140,12 +140,11 @@ async function handleRegisterSubmit(e) {
             },
         });
 
+        console.log("DATA:", data);
+        console.log("ERROR:", error);
+
         if (error) {
-            if (error.message.includes("User already registered")) {
-                showStatusMessage("El usuario ya está registrado.", "error");
-            } else {
-                throw error;
-            }
+            showStatusMessage(error.message || "Error desconocido al registrar usuario", "error");
             return;
         }
 
@@ -158,6 +157,7 @@ async function handleRegisterSubmit(e) {
         }, 1000);
 
     } catch (error) {
+        console.error("Catch Error:", error);
         showStatusMessage(error.message || "Error al registrar usuario", "error");
     }
 }
